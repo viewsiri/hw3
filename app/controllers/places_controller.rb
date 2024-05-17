@@ -5,7 +5,19 @@ class PlacesController < ApplicationController
   end
 
   def new
+  # render view with new Place form
   end
 
+  def create
+    @place = Place.new
+    @place["name"] = params["name"]
+    @place.save
+    redirect_to "/places"
+  end
+
+  def show
+    @place = Place.find_by({ "id" => params["id"] })
+    @entry = Entry.where({ "place_id" => @place["id"] })
+  end
 
 end
